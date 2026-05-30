@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#f1f5f9;font-family:'DM Sans',sans-serif}
+.nav{position:fixed;bottom:13px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;z-index:9999;background:rgba(255,255,255,.97);border:1px solid #e0e0e0;border-radius:99px;padding:6px 15px;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.ndot{width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:all .3s}
+.ndot.on{background:#CC0000;transform:scale(1.4)}
+.nbtn{background:none;border:1px solid #ddd;color:#444;padding:4px 14px;border-radius:99px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:700}
+.nbtn:hover{background:#CC0000;border-color:#CC0000;color:#fff}
+.ncnt{font-size:9px;color:#aaa;min-width:28px;text-align:center}
+.slbl{font-size:8px;color:#bbb;letter-spacing:.1em;text-transform:uppercase;min-width:180px;text-align:center}
+.slide{position:absolute;inset:0;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s}
+.slide.active{opacity:1;pointer-events:all}
+
+/* ── COVER ── */
+#s0{background:linear-gradient(135deg,#0f172a 0%,#1c1c2e 55%,#2a0505 100%)}
+.cw{height:100vh;display:flex;flex-direction:column;justify-content:center;padding:52px 72px 90px;position:relative;overflow:hidden}
+.cc{position:absolute;border-radius:50%;opacity:.07;pointer-events:none}
+.cc1{width:580px;height:580px;background:#CC0000;right:-110px;top:-130px}
+.cc2{width:260px;height:260px;background:#CC0000;left:-55px;bottom:-55px}
+.ctag{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#CC0000;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.ctag::before{content:'';display:block;width:30px;height:2px;background:#CC0000;border-radius:2px}
+.ch1{font-size:44px;font-weight:900;color:#fff;line-height:1.08;letter-spacing:-1.2px;margin-bottom:10px}
+.ch1 em{color:#CC0000;font-style:normal}
+.cdiv{width:54px;height:3px;background:#CC0000;border-radius:2px;margin-bottom:20px}
+.csub{font-size:15px;color:#94a3b8;margin-bottom:34px}
+.csub strong{color:#cbd5e1;font-weight:600}
+.ctasks{display:flex;gap:12px;margin-bottom:38px}
+.ct{border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:13px 17px;flex:1;background:rgba(255,255,255,.04)}
+.ct-n{font-size:8.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#CC0000;margin-bottom:5px}
+.ct-t{font-size:12px;font-weight:600;color:#fff;line-height:1.4}
+.cmeta{font-size:12px;color:#475569;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.07);padding-top:22px}
+.cname{font-size:14px;font-weight:700;color:#94a3b8}
+.csep{width:4px;height:4px;border-radius:50%;background:#334155}
+
+/* ── SLIDE 1 ── */
+.pg{padding:15px 26px 80px;max-width:1280px;margin:0 auto}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:9px;border-bottom:2px solid #e2e8f0}
+.hdr h1{font-size:14px;font-weight:800;color:#0f172a;letter-spacing:-.3px}
+.hdr p{font-size:9px;color:#94a3b8;margin-top:2px}
+.bdg{font-size:7.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:#CC0000;color:#fff;padding:4px 11px;border-radius:4px;white-space:nowrap}
+
+/* LEGEND */
+.leg{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:6px 11px;background:#fff;border:1px solid #e5e5e5;border-radius:7px;margin-bottom:11px}
+.lt{font-size:7.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-right:3px}
+.li{display:flex;align-items:center;gap:5px;font-size:8.5px;color:#444;font-weight:500}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* ── CORE LEG-ROW PATTERN (like xambica/AHL) ── */
+.leg-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px}
+.step-box{width:130px;flex-shrink:0;border-radius:8px;padding:9px 11px;border:2px solid}
+.sb-black{background:#0f172a;border-color:#0f172a}
+.sb-amber{background:#d97706;border-color:#d97706}
+.sb-green{background:#15803d;border-color:#15803d}
+.sb-blue{background:#1d4ed8;border-color:#1d4ed8}
+.sb-n{font-size:6.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-bottom:3px;color:#fff}
+.sb-t{font-size:10px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:2px}
+.sb-s{font-size:7.5px;color:rgba(255,255,255,.65);line-height:1.4}
+
+/* SOURCE BOXES — three sources side by side */
+.src-row{display:flex;gap:8px;flex:1}
+.src{flex:1;border-radius:8px;padding:9px 11px;border:2px solid}
+.src-black{background:#1e293b;border-color:#334155}
+.src-t{font-size:9.5px;font-weight:700;color:#fff;margin-bottom:2px}
+.src-s{font-size:8px;color:#94a3b8;line-height:1.5;margin-bottom:5px}
+.src-action{font-size:7.5px;background:rgba(255,255,255,.07);border-radius:5px;padding:4px 8px;color:#cbd5e1;line-height:1.5;border-left:2px solid #475569}
+
+/* PILLS — pastel, coloured by issue type */
+.pills-wrap{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
+.pill{display:inline-flex;flex-direction:column;border-radius:5px;padding:4px 9px;border:1px solid;font-size:8px;line-height:1.4;vertical-align:top;max-width:220px}
+.pill b{font-weight:700;display:block;margin-bottom:1px;font-size:8px}
+.pill span{display:block;font-weight:400;line-height:1.4;opacity:.85}
+
+/* pill colours by issue type */
+.p-fmt{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+.p-sco{background:#faf5ff;border-color:#d8b4fe;color:#6b21a8}
+.p-sla{background:#fffbeb;border-color:#fde68a;color:#92400e}
+.p-mis{background:#fff1f2;border-color:#fecdd3;color:#9f1239}
+.p-ver{background:#fdf4ff;border-color:#e9d5ff;color:#7e22ce}
+.p-lin{background:#fff1f2;border-color:#fca5a5;color:#991b1b}
+.p-sil{background:#fef9ee;border-color:#fbbf24;color:#78350f}
+.p-doc{background:#fef9ee;border-color:#fbbf24;color:#78350f}
+.p-key{background:#fdf2f8;border-color:#f0abdb;color:#86198f}
+.p-reg{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.p-dmg{background:#fff1f2;border-color:#CC0000;color:#CC0000}
+
+/* DAMAGE STAT pills — white box, number in colour, clearly separate from pastel pills */
+.dmg-row{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;padding-top:7px;border-top:1px dashed #e2e8f0;width:100%}
+.dmg-row-label{font-size:7px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;width:100%;margin-bottom:3px}
+.dmg{display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #e2e8f0;border-radius:7px;padding:5px 11px;font-size:7.5px;color:#475569;line-height:1.4}
+.dmg-n{font-size:17px;font-weight:900;color:#CC0000;flex-shrink:0;line-height:1}
+.dmg-amber{background:#fff;border-color:#e2e8f0}
+.dmg-amber .dmg-n{color:#d97706}
+
+/* ARROW connector */
+.flow-arr{display:flex;justify-content:center;align-items:center;margin:0 0 0 65px;height:22px;position:relative}
+.flow-arr::before{content:'';position:absolute;left:50%;top:0;width:2px;height:100%;background:#cbd5e1}
+.flow-arr-lbl{font-size:7.5px;font-weight:600;color:#94a3b8;position:absolute;left:calc(50% + 8px);top:50%;transform:translateY(-50%);white-space:nowrap;background:#f1f5f9;padding:0 4px}
+
+/* REVIEW LOOP */
+.loop{background:#fff;border:2px solid #CC0000;border-radius:10px;padding:11px 13px;position:relative;margin-top:4px}
+.loop-lbl{position:absolute;top:-10px;left:14px;background:#CC0000;color:#fff;font-size:7px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 10px;border-radius:4px}
+.loop-grid{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.loop-col{flex:1;min-width:200px}
+.loop-col-t{font-size:8.5px;font-weight:700;color:#7f1d1d;margin-bottom:5px}
+.loop-item{font-size:8px;color:#991b1b;padding:3px 0;border-bottom:1px solid #fecdd3;line-height:1.5}
+.loop-item:last-child{border-bottom:none}
+.chain{display:flex;align-items:center;gap:0;overflow-x:auto;margin-top:5px}
+.ci{flex-shrink:0;font-size:7.5px;font-weight:600;padding:5px 9px;border-radius:6px;line-height:1.4;text-align:center}
+.ci-r{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239}
+.ci-a{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+.ca{color:#CC0000;font-size:13px;padding:0 2px;flex-shrink:0;font-weight:700}
+.loop-stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:1px solid #fecdd3}
+.ls{font-size:7.5px;padding:3px 9px;border-radius:5px;border:1px solid #fecdd3;background:#fff5f5;color:#9f1239;line-height:1.4}
+
+/* TIME BAR */
+.tbar-wrap{margin-top:10px}
+.tbar-t{font-size:7.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.tbar{display:flex;height:20px;border-radius:6px;overflow:hidden;width:100%}
+.tb{display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff}
+
+/* SUMMARY */
+.summary{margin-top:10px;background:#0f172a;border-radius:9px;padding:10px 14px;display:flex;gap:10px;flex-wrap:wrap}
+.sum-item{flex:1;min-width:150px}
+.sum-lbl{font-size:7.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#CC0000;margin-bottom:3px}
+.sum-body{font-size:8px;color:#94a3b8;line-height:1.6}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 0 — COVER -->
+<div class="slide active" id="s0">
+<div class="cw">
+  <div class="cc cc1"></div><div class="cc cc2"></div>
+  <div class="ctag">Global Manufacturing Organisation</div>
+  <h1 class="ch1">Sustainability &amp; Regulatory<br>Reporting <em>Transformation</em></h1>
+  <div class="cdiv"></div>
+  <p class="csub"><strong>As-is analysis</strong> &nbsp;|&nbsp; <strong>Governance controls</strong> &nbsp;|&nbsp; <strong>To-be automated pipeline design</strong></p>
+  <div class="ctasks">
+    <div class="ct"><div class="ct-n">Task 01</div><div class="ct-t">Map &amp; stabilise the whole process</div></div>
+    <div class="ct"><div class="ct-n">Task 02</div><div class="ct-t">Put governance controls in place</div></div>
+    <div class="ct"><div class="ct-n">Task 03</div><div class="ct-t">Propose a to-be automated state — preserved outcome, reduced effort</div></div>
+  </div>
+  <div class="cmeta">
+    <span class="cname">Victoria Moreno Sempere</span>
+    <span class="csep"></span>
+    <span>Data Solutions Lead · Portfolio Case Study · May 2026</span>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 1 — AS-IS BROKEN PROCESS -->
+<div class="slide" id="s1" style="background:#f1f5f9">
+<div class="pg">
+
+<div class="hdr">
+  <div>
+    <h1>As-Is — The Broken Process: Mapped, Failure Points Named &amp; Damage Quantified</h1>
+    <p>Current state · 6-week manual cycle · sustainability &amp; regulatory reporting · Global Manufacturing Organisation · Task 01 of 03</p>
+  </div>
+  <span class="bdg">Task 01 — Map &amp; Stabilise</span>
+</div>
+
+<!-- LEGEND -->
+<div class="leg">
+  <span class="lt">Process steps:</span>
+  <div class="li"><div class="ld" style="background:#0f172a"></div>Data query / handoff</div>
+  <div class="li"><div class="ld" style="background:#d97706"></div>Collection &amp; calculation (amber)</div>
+  <div class="li"><div class="ld" style="background:#1d4ed8"></div>Consolidation — master sheet (blue)</div>
+  <div class="li"><div class="ld" style="background:#CC0000"></div>Review loop — trust failure (red)</div>
+  <span class="lt" style="margin-left:6px">Failure type:</span>
+  <div class="li"><div class="ld" style="background:#fed7aa"></div>Format / scope</div>
+  <div class="li"><div class="ld" style="background:#d8b4fe"></div>Version control</div>
+  <div class="li"><div class="ld" style="background:#fca5a5"></div>Audit trail / lineage</div>
+  <div class="li"><div class="ld" style="background:#fde68a"></div>SLA / ownership</div>
+  <div class="li"><div class="ld" style="background:#fbbf24"></div>Silent error</div>
+  <div class="li"><div class="ld" style="background:#bfdbfe"></div>Regulatory risk</div>
+</div>
+
+<!-- STEP 01 — DATA QUERY (black) -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 01</div>
+    <div class="sb-t">📤 Data query</div>
+    <div class="sb-s">Sustainability team initiates request</div>
+  </div>
+  <div class="pills-wrap">
+    <span class="pill p-sla"><b>No request template:</b><span>Ad hoc emails sent to each source — no standard fields, no agreed scope, no confirmation of receipt</span></span>
+    <span class="pill p-sla"><b>No SLA:</b><span>No deadline attached · no escalation path · no tracking of who has responded · process cannot start until all data arrives</span></span>
+    <span class="pill p-mis"><b>Missing data discovered late:</b><span>Incomplete submissions only identified at consolidation — 1–2 weeks after request sent</span></span>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">request sent to three disconnected sources</div></div>
+
+<!-- STEP 02 — THREE SOURCES (black) -->
+<div class="leg-row" style="align-items:stretch">
+  <div class="step-box sb-black" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="sb-n">Step 02</div>
+    <div class="sb-t">🏗️ Data sources</div>
+    <div class="sb-s">Three disconnected systems · no standard protocol</div>
+  </div>
+  <div class="src-row">
+    <div class="src src-black">
+      <div class="src-t">SAP ERP</div>
+      <div class="src-s">Energy, materials, logistics, production volumes per plant. Not automatically exported — requires manual SAP query.</div>
+      <div class="src-action">Staff logs into SAP → manual export → CSV or Excel → copies required fields → sends by email</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Factory / Plant operational</div>
+      <div class="src-s">Each site: water, waste, on-site emissions. Separate local systems — some Excel, some databases, some paper typed up.</div>
+      <div class="src-action">Site coordinator exports from local system or manually types data into Excel → sends as email attachment</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Third-party data</div>
+      <div class="src-s">Logistics partners, suppliers, energy companies. Fuel consumption, materials, utility bills. Arrive as email attachments.</div>
+      <div class="src-action">Third party sends in their own format (Excel / PDF / CSV) → team manually re-enters relevant figures</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">data retrieved — numerous separate Excel files, CSVs and attachments land in inbox</div></div>
+
+<!-- STEP 03 — DATA COLLECTION (amber) -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 03 · ~Wk 1–2</div>
+    <div class="sb-t">📥 Data collection &amp; retrieval</div>
+    <div class="sb-s">Files received · no standard format</div>
+  </div>
+  <div class="pills-wrap">
+    <span class="pill p-fmt"><b>⚠ No standard format:</b><span>Factory A → kWh · Factory B → MWh · Factory C → GJ · manual conversion required · conversion errors go undetected</span></span>
+    <span class="pill p-sco"><b>⚠ No standard scope:</b><span>"Emissions" means different things to different sites — Scope 1 only? Grid electricity? Fleet? No definition written down</span></span>
+    <span class="pill p-sla"><b>⚠ No SLA — delays cascade:</b><span>Some sites respond in 2 days · some take 2 weeks · entire process blocked waiting · no escalation possible</span></span>
+    <span class="pill p-mis"><b>⚠ Missing data discovered late:</b><span>Incomplete files only identified when consolidating — 1–2 weeks later · re-request required · further delay added</span></span>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Damage quantified</div>
+      <div class="dmg"><span class="dmg-n">~70%</span>of submissions contain at least one unit inconsistency requiring manual correction</div>
+      <div class="dmg dmg-amber"><span class="dmg-n">~2 wks</span>average time lost waiting with no SLA · process fully blocked</div>
+      <div class="dmg"><span class="dmg-n">~40%</span>of cycles delayed by missing data discovered only at consolidation</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">staff manually copies all files into one master spreadsheet</div></div>
+
+<!-- STEP 04 — CONSOLIDATION (blue) -->
+<div class="leg-row">
+  <div class="step-box sb-blue">
+    <div class="sb-n">Step 04 · ~Wk 2–3</div>
+    <div class="sb-t">📊 Data consolidation</div>
+    <div class="sb-s">Master spreadsheet built by copy-paste</div>
+  </div>
+  <div class="pills-wrap">
+    <span class="pill p-lin"><b>⚠ No lineage — audit trail lost:</b><span>Once pasted, the row's origin is permanently severed — no record of which factory, which export, which date it came from</span></span>
+    <span class="pill p-ver"><b>⚠ Version chaos:</b><span>Files saved as v1, v2, FINAL, FINAL_USE_THIS · multiple people may work from different versions simultaneously</span></span>
+    <span class="pill p-sil"><b>⚠ Silent Excel errors:</b><span>Wrong tab selected · formulas shift when rows inserted · thousands vs millions mismatch · errors invisible until stakeholder review</span></span>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Damage quantified</div>
+      <div class="dmg"><span class="dmg-n">~60%</span>of consolidation errors are silent — not caught until stakeholder review weeks later</div>
+      <div class="dmg dmg-amber"><span class="dmg-n">~1.5 days</span>average manual effort per consolidation cycle for one person</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">consolidated data prepared — calculations applied</div></div>
+
+<!-- STEP 05 — CALCULATION (amber) -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 05 · ~Wk 3–4</div>
+    <div class="sb-t">🧮 Calculation &amp; preparation</div>
+    <div class="sb-s">Emission factors applied via Excel formulas</div>
+  </div>
+  <div class="pills-wrap">
+    <span class="pill p-sil"><b>⚠ Undocumented logic:</b><span>Emission factor buried in cell F4 tab "Factors" · never documented · may have been updated without record · no one else knows it exists</span></span>
+    <span class="pill p-key"><b>⚠ Key-person dependency:</b><span>One person built and understands this spreadsheet · if absent — process stops entirely · no SOP · no handover · no backup</span></span>
+    <span class="pill p-ver"><b>⚠ No version history:</b><span>Factors may have changed three times · no changelog · cannot confirm which version produced which output · regulatory exposure</span></span>
+    <span class="pill p-lin"><b>⚠ Unit loss in copy-paste:</b><span>Original Excel formulas that adapted units were severed during consolidation · technical factory/plant figures highest risk · ~90% probability engineer will flag</span></span>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Damage quantified</div>
+      <div class="dmg"><span class="dmg-n">~90%</span>likelihood technical factory figures challenged — unit errors near-certain to trigger verification</div>
+      <div class="dmg"><span class="dmg-n">100%</span>key-person dependency — no one else can run this</div>
+      <div class="dmg dmg-amber"><span class="dmg-n">0</span>version history of calculation methodology</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">output submitted to stakeholders / requestors</div></div>
+
+<!-- STEP 06 — SUBMISSION (black) -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 06</div>
+    <div class="sb-t">📨 Submitted to requestor</div>
+    <div class="sb-s">Static report · no lineage attached</div>
+  </div>
+  <div class="pills-wrap">
+    <span class="pill p-lin"><b>No audit trail attached:</b><span>Figures delivered with no source reference, no methodology note, no version tag · stakeholder receives a number with no way to verify it</span></span>
+    <span class="pill p-reg"><b>Regulatory risk:</b><span>CSRD · GHG Protocol · CDP all require figures to be traceable to source and verifiable by external auditor · this submission cannot satisfy that</span></span>
+  </div>
+</div>
+
+<div class="flow-arr" style="margin-left:65px">
+  <div class="flow-arr-lbl" style="color:#CC0000;font-weight:700">⚠ data not trusted — stakeholder requests verification — review loop triggered</div>
+</div>
+
+<!-- REVIEW LOOP -->
+<div class="loop">
+  <div class="loop-lbl">⚠ REVIEW LOOP — TRUST FAILURE · adds 1–2 weeks minimum · may repeat multiple times</div>
+  <div class="loop-grid">
+    <div class="loop-col">
+      <div class="loop-col-t">What the stakeholder asks:</div>
+      <div class="loop-item">📍 "Where did this figure come from?" — no audit trail to answer</div>
+      <div class="loop-item">📐 "How was this calculated?" — methodology undocumented</div>
+      <div class="loop-item">🔢 "Are these units correct?" — conversion logic was lost in copy-paste</div>
+      <div class="loop-item">📁 "Which version of the data is this?" — version chaos, unknown</div>
+    </div>
+    <div class="loop-col">
+      <div class="loop-col-t">The bottleneck chain that follows:</div>
+      <div class="chain">
+        <div class="ci ci-r">Staff spends<br>full day tracing<br>data origin</div>
+        <span class="ca">→</span>
+        <div class="ci ci-a">Source data<br>may have been<br>updated since</div>
+        <span class="ca">→</span>
+        <div class="ci ci-r">Re-request<br>required —<br>new delay</div>
+        <span class="ca">→</span>
+        <div class="ci ci-a">Other queries<br>blocked —<br>bottleneck</div>
+        <span class="ca">→</span>
+        <div class="ci ci-r">New data ·<br>same process ·<br>same errors</div>
+        <span class="ca">→</span>
+        <div class="ci ci-r">Trust further<br>eroded ·<br>cycle repeats</div>
+      </div>
+    </div>
+  </div>
+  <div class="loop-stats">
+    <span class="ls">⏱ 1–2 weeks lost per loop</span>
+    <span class="ls">👤 1 staff member consumed full-time</span>
+    <span class="ls">📉 Each re-run carries same error risks — no improvement</span>
+    <span class="ls">⚖️ Regulatory deadline at risk</span>
+    <span class="ls">🔄 No institutional memory carried forward</span>
+    <span class="ls">😤 Stakeholder trust permanently degraded — future outputs pre-challenged</span>
+  </div>
+</div>
+
+<!-- TIME BAR -->
+<div class="tbar-wrap">
+  <div class="tbar-t">Approximate cycle time breakdown — ~6 weeks total</div>
+  <div class="tbar">
+    <div class="tb" style="background:#1e293b;flex:1">Query<br>~2d</div>
+    <div class="tb" style="background:#374151;flex:1">Sources<br>~3d</div>
+    <div class="tb" style="background:#d97706;flex:2">Collection<br>~2 wk</div>
+    <div class="tb" style="background:#1d4ed8;flex:1.5">Consolidation<br>~1 wk</div>
+    <div class="tb" style="background:#b45309;flex:1.5">Calculation<br>~1 wk</div>
+    <div class="tb" style="background:#991b1b;flex:2.5">⚠ Review loops<br>~1–2 wk — avoidable</div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="sum-item"><div class="sum-lbl">Time</div><div class="sum-body">~6 weeks total. ~30–40% is avoidable re-work caused entirely by absence of audit trail and version control. Not QA. Wasted time.</div></div>
+  <div class="sum-item"><div class="sum-lbl">Quality</div><div class="sum-body">Errors are silent and cumulative. Each step introduces new risk. By submission figures have passed through 4–5 manual transformations each carrying its own error probability.</div></div>
+  <div class="sum-item"><div class="sum-lbl">Trust</div><div class="sum-body">Stakeholders cannot verify what they receive. Once challenged, data is presumed unreliable until proven otherwise. Each cycle starts with a trust deficit.</div></div>
+  <div class="sum-item"><div class="sum-lbl">Compliance</div><div class="sum-body">CSRD, GHG Protocol, CDP all require submitted figures to be traceable and verifiable by an external auditor. This process cannot satisfy that requirement.</div></div>
+</div>
+
+</div>
+</div>
+
+<!-- SLIDE 2 — STABILISING THE PROCESS -->
+<div class="slide" id="s2" style="background:#f1f5f9">
+<div class="pg">
+<style>
+/* solution box — green outline, white bg, black text */
+.sol{display:inline-flex;flex-direction:column;border-radius:5px;padding:4px 9px;border:1.5px solid #16a34a;background:#fff;font-size:8px;line-height:1.4;margin:2px 0 0 0;vertical-align:top}
+.sol b{font-weight:700;color:#0f172a;display:block;margin-bottom:1px;font-size:8px}
+.sol span{display:block;color:#1a1a1a;font-weight:400;line-height:1.4}
+/* pair: error pill + arrow + solution — inline */
+.pair{display:inline-flex;align-items:flex-start;gap:4px;margin:2px 4px 2px 0;vertical-align:top}
+.pair-arr{font-size:10px;color:#94a3b8;margin-top:5px;flex-shrink:0}
+</style>
+
+<div class="hdr">
+  <div>
+    <h1>Stabilising the Process — Solution at Every Failure Point</h1>
+    <p>Task 01 continued · same flow · failure type (original colour, name only) → arrow → green solution box</p>
+  </div>
+  <span class="bdg">Task 01 — Stabilise</span>
+</div>
+
+<div class="leg">
+  <span class="lt">Step colours:</span>
+  <div class="li"><div class="ld" style="background:#0f172a"></div>Query / handoff</div>
+  <div class="li"><div class="ld" style="background:#d97706"></div>Collection &amp; calculation</div>
+  <div class="li"><div class="ld" style="background:#1d4ed8"></div>Consolidation</div>
+  <span class="lt" style="margin-left:6px">Failure types:</span>
+  <div class="li"><div class="ld" style="background:#fed7aa"></div>Format / scope</div>
+  <div class="li"><div class="ld" style="background:#d8b4fe"></div>Version control</div>
+  <div class="li"><div class="ld" style="background:#fca5a5"></div>Audit trail / lineage</div>
+  <div class="li"><div class="ld" style="background:#fde68a"></div>SLA / ownership</div>
+  <div class="li"><div class="ld" style="background:#fbbf24"></div>Silent error</div>
+  <div class="li"><div class="ld" style="background:#bfdbfe"></div>Regulatory risk</div>
+  <span class="lt" style="margin-left:6px">→</span>
+  <div class="li"><div class="ld" style="background:#86efac"></div>Solution (green)</div>
+</div>
+
+<!-- STEP 01 -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 01</div>
+    <div class="sb-t">📤 Data query</div>
+    <div class="sb-s">Sustainability team initiates request</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="pair"><span class="pill p-sla"><b>No request template</b></span><span class="pair-arr">→</span><span class="sol"><b>Standardised template:</b><span>Required fields · units · scope · reporting period — same form to all sources</span></span></div>
+    <div class="pair"><span class="pill p-sla"><b>No SLA</b></span><span class="pair-arr">→</span><span class="sol"><b>SLA per source:</b><span>Deadline agreed · auto-reminder at 48hr · named escalation if missed</span></span></div>
+    <div class="pair"><span class="pill p-mis"><b>Missing data discovered late</b></span><span class="pair-arr">→</span><span class="sol"><b>Completeness check on receipt:</b><span>Submission checked immediately · gap flagged within 24hr</span></span></div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">structured request with template and SLA sent to all three sources</div></div>
+
+<!-- STEP 02 -->
+<div class="leg-row" style="align-items:stretch">
+  <div class="step-box sb-black" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="sb-n">Step 02</div>
+    <div class="sb-t">🏗️ Data sources</div>
+    <div class="sb-s">SAP · Factory/Plant · Third-party</div>
+  </div>
+  <div class="src-row">
+    <div class="src src-black">
+      <div class="src-t">SAP ERP</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Python — scheduled automated export · no manual login</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Factory / Plant operational</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Controlled submission folder · standard template · no email attachments</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Third-party data</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Agreed format · Python normalises on ingestion</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">data arrives in controlled format — Python pipeline reads and processes</div></div>
+
+<!-- STEP 03 -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 03 · ~Day 1–2</div>
+    <div class="sb-t">📥 Data collection &amp; retrieval</div>
+    <div class="sb-s">Python ingestion — automated</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="pair"><span class="pill p-fmt"><b>No standard format / units</b></span><span class="pair-arr">→</span><span class="sol"><b>Master data dictionary:</b><span>Units standardised — MWh · tCO₂e · tonnes — applied automatically by Python on every record</span></span></div>
+    <div class="pair"><span class="pill p-sco"><b>No standard scope</b></span><span class="pair-arr">→</span><span class="sol"><b>Scope definitions agreed:</b><span>Scope 1/2/3 per GHG Protocol · written · signed off · referenced in every run</span></span></div>
+    <div class="pair"><span class="pill p-sla"><b>No SLA — delays cascade</b></span><span class="pair-arr">→</span><span class="sol"><b>Automated monitoring:</b><span>Pipeline alerts if source misses deadline · same-day notification</span></span></div>
+    <div class="pair"><span class="pill p-mis"><b>Missing data discovered late</b></span><span class="pair-arr">→</span><span class="sol"><b>Completeness score per run:</b><span>Quality report on every ingestion · gaps flagged to named data owner immediately</span></span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Before → After</div>
+      <div class="dmg"><span class="dmg-n">~70%</span>unit inconsistency → <strong>0%</strong> auto-conversion on every record</div>
+      <div class="dmg dmg-amber"><span class="dmg-n">~2 wks</span>SLA delay → <strong>same-day alert</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">clean validated data loaded into Microsoft Fabric via Data Factory</div></div>
+
+<!-- STEP 04 -->
+<div class="leg-row">
+  <div class="step-box sb-blue">
+    <div class="sb-n">Step 04 · ~Day 2–3</div>
+    <div class="sb-t">📊 Data consolidation</div>
+    <div class="sb-s">Fabric warehouse — immutable raw layer</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="pair"><span class="pill p-lin"><b>No lineage — audit trail lost</b></span><span class="pair-arr">→</span><span class="sol"><b>Source tag on every row:</b><span>Source · file · run ID · timestamp — immutable, never overwritten</span></span></div>
+    <div class="pair"><span class="pill p-ver"><b>Version chaos</b></span><span class="pair-arr">→</span><span class="sol"><b>Single source of truth:</b><span>One Fabric warehouse · no local copies · all code in Git · named approval for any change</span></span></div>
+    <div class="pair"><span class="pill p-sil"><b>Silent Excel errors</b></span><span class="pair-arr">→</span><span class="sol"><b>Automated quality checks:</b><span>Range validation · duplicate detection · variance flags · exceptions logged — nothing passes silently</span></span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Before → After</div>
+      <div class="dmg"><span class="dmg-n">~60%</span>silent error rate → <strong>0%</strong> automated checks on every run</div>
+      <div class="dmg dmg-amber"><span class="dmg-n">~1.5 days</span>manual effort → <strong>automated</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">clean data transformed by SQL — emission factors applied in Fabric</div></div>
+
+<!-- STEP 05 -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 05 · ~Day 3</div>
+    <div class="sb-t">🧮 Calculation &amp; preparation</div>
+    <div class="sb-s">SQL transforms in Fabric — Git version-controlled</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="pair"><span class="pill p-sil"><b>Undocumented logic</b></span><span class="pair-arr">→</span><span class="sol"><b>Methodology SOP:</b><span>All factors and calculation logic documented · version-controlled · no logic buried in cells</span></span></div>
+    <div class="pair"><span class="pill p-key"><b>Key-person dependency</b></span><span class="pair-arr">→</span><span class="sol"><b>Logic in SQL not in heads:</b><span>All calculation in Git · any analyst can run or extend · full handover documentation</span></span></div>
+    <div class="pair"><span class="pill p-ver"><b>No version history</b></span><span class="pair-arr">→</span><span class="sol"><b>Git version control:</b><span>Every SQL change committed with author · date · reason · factor version on every output row</span></span></div>
+    <div class="pair"><span class="pill p-lin"><b>Unit loss in copy-paste</b></span><span class="pair-arr">→</span><span class="sol"><b>Units standardised before calculation:</b><span>Python cleans all units before Fabric — calculation always runs on validated inputs</span></span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Before → After</div>
+      <div class="dmg"><span class="dmg-n">~90%</span>challenge rate on technical figures → <strong>near 0%</strong></div>
+      <div class="dmg"><span class="dmg-n">100%</span>key-person dependency → <strong>0</strong> — repeatable by any analyst</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">curated validated data surfaces to Power BI — stakeholder review</div></div>
+
+<!-- STEP 06 -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 06</div>
+    <div class="sb-t">📨 Submitted to requestor</div>
+    <div class="sb-s">Live Power BI · drill-through · audit package</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="pair"><span class="pill p-lin"><b>No audit trail attached</b></span><span class="pair-arr">→</span><span class="sol"><b>Full drill-through in Power BI:</b><span>Any figure → curated table → transform → raw source row · challenge answered in minutes</span></span></div>
+    <div class="pair"><span class="pill p-reg"><b>Regulatory risk</b></span><span class="pair-arr">→</span><span class="sol"><b>Audit package auto-compiled:</b><span>Methodology · factors · sources · exception log · QC results · sign-off — bundled on submission</span></span></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- SLIDE 3 — GOVERNANCE CONTROLS -->
+<div class="slide" id="s3" style="background:#f1f5f9">
+<div class="pg">
+<style>
+/* brown-outlined governance box */
+.gov{display:inline-flex;flex-direction:column;border-radius:6px;padding:5px 10px;border:2px solid #92400e;background:#fff;font-size:8px;line-height:1.4;margin:2px 3px 2px 0;vertical-align:top;max-width:210px}
+.gov-hdr{font-size:7px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#92400e;margin-bottom:3px;display:flex;align-items:center;gap:3px}
+.gov b{font-weight:700;color:#0f172a;display:block;margin-bottom:1px}
+.gov span{color:#374151;font-weight:400}
+/* governance type name colours */
+.gt-raci{color:#b45309;font-weight:800}
+.gt-dq{color:#1d4ed8;font-weight:800}
+.gt-audit{color:#15803d;font-weight:800}
+.gt-ver{color:#6b21a8;font-weight:800}
+.gt-exc{color:#CC0000;font-weight:800}
+.gt-sop{color:#0f172a;font-weight:800}
+.gt-reg{color:#0369a1;font-weight:800}
+/* solution box — green outline, white bg, black text */
+.sol3{display:inline-flex;flex-direction:column;border-radius:5px;padding:4px 9px;border:1.5px solid #16a34a;background:#fff;font-size:8px;line-height:1.4;margin:2px 2px 2px 0;vertical-align:top}
+.sol3 b{font-weight:700;color:#0f172a;display:block;margin-bottom:1px;font-size:8px}
+.sol3 span{display:block;color:#374151;font-weight:400;line-height:1.4}
+/* sol + arrow + gov type tag — inline pair */
+.sg-pair{display:inline-flex;align-items:flex-start;gap:3px;margin:2px 5px 2px 0;vertical-align:top;flex-wrap:nowrap}
+.sg-arr{font-size:9px;margin-top:5px;flex-shrink:0;font-weight:700}
+.gt-tag{font-size:7px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;padding:2px 6px;border:1px solid;margin-top:5px;flex-shrink:0;white-space:nowrap}
+.gt-tag-raci{color:#b45309;border-color:#b45309;background:#fff7ed}
+.gt-tag-dq{color:#1d4ed8;border-color:#1d4ed8;background:#eff6ff}
+.gt-tag-audit{color:#15803d;border-color:#15803d;background:#f0fdf4}
+.gt-tag-ver{color:#6b21a8;border-color:#6b21a8;background:#faf5ff}
+.gt-tag-exc{color:#CC0000;border-color:#CC0000;background:#fff1f2}
+.gt-tag-sop{color:#0f172a;border-color:#374151;background:#f8fafc}
+.gt-tag-reg{color:#0369a1;border-color:#0369a1;background:#f0f9ff}
+</style>
+
+<div class="hdr">
+  <div>
+    <h1>Governance Controls — Embedded at Every Stage of the Correct Workflow</h1>
+    <p>Task 02 · correct workflow · green solution → arrow → governance type it activates · brown box = governance control detail</p>
+  </div>
+  <span class="bdg">Task 02 — Governance</span>
+</div>
+
+<div class="leg">
+  <span class="lt">Steps:</span>
+  <div class="li"><div class="ld" style="background:#0f172a"></div>Query / handoff</div>
+  <div class="li"><div class="ld" style="background:#d97706"></div>Collection &amp; calculation</div>
+  <div class="li"><div class="ld" style="background:#1d4ed8"></div>Consolidation</div>
+  <div class="li"><div class="ld" style="background:#86efac"></div>Solution</div>
+  <span class="lt" style="margin-left:6px">Governance types:</span>
+  <div class="li"><span class="gt-tag gt-tag-raci">RACI</span>Ownership</div>
+  <div class="li"><span class="gt-tag gt-tag-dq">DQ</span>Data quality</div>
+  <div class="li"><span class="gt-tag gt-tag-audit">AUDIT</span>Audit trail</div>
+  <div class="li"><span class="gt-tag gt-tag-ver">VER</span>Version control</div>
+  <div class="li"><span class="gt-tag gt-tag-exc">EXC</span>Exception handling</div>
+  <div class="li"><span class="gt-tag gt-tag-sop">SOP</span>Documentation</div>
+  <div class="li"><span class="gt-tag gt-tag-reg">REG</span>Regulatory</div>
+</div>
+
+<!-- STEP 01 -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 01</div>
+    <div class="sb-t">📤 Data query</div>
+    <div class="sb-s">Standardised request initiated</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="sg-pair"><span class="sol3"><b>Standardised template issued</b><span>Required fields · units · scope · reporting period — same form to all sources</span></span><span class="sg-arr gt-raci">→</span><span class="gt-tag gt-tag-raci">RACI</span></div>
+    <div class="sg-pair"><span class="sol3"><b>SLA per source confirmed</b><span>Deadline documented · auto-reminder · named escalation contact</span></span><span class="sg-arr gt-sop">→</span><span class="gt-tag gt-tag-sop">SOP</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Completeness check on receipt</b><span>Each submission validated on arrival · gap flagged within 24hr</span></span><span class="sg-arr gt-exc">→</span><span class="gt-tag gt-tag-exc">EXC</span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Governance detail</div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-raci">RACI</span></div><b>Named data owner per domain</b><span>Energy · Emissions · Waste · Water — each with accountable owner and submission SLA</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-sop">SOP</span></div><b>Data collection SOP published</b><span>Process documented · signed off · version-controlled · all sources briefed</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-exc">EXC</span></div><b>Escalation path defined</b><span>Missing submission → named contact alerted immediately · not silently waited for</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">structured request with RACI and SOP sent to all three sources</div></div>
+
+<!-- STEP 02 -->
+<div class="leg-row" style="align-items:stretch">
+  <div class="step-box sb-black" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="sb-n">Step 02</div>
+    <div class="sb-t">🏗️ Data sources</div>
+    <div class="sb-s">SAP · Factory/Plant · Third-party</div>
+  </div>
+  <div class="src-row">
+    <div class="src src-black">
+      <div class="src-t">SAP ERP</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Python — scheduled automated export · no manual login</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Factory / Plant operational</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Controlled submission folder · standard template · no email attachments</div>
+    </div>
+    <div class="src src-black">
+      <div class="src-t">Third-party data</div>
+      <div class="src-action" style="border-color:#16a34a;color:#86efac">✓ Agreed format · Python normalises on ingestion</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">data arrives in controlled format — Python reads, cleans and validates</div></div>
+
+<!-- STEP 03 -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 03 · ~Day 1–2</div>
+    <div class="sb-t">📥 Data collection &amp; retrieval</div>
+    <div class="sb-s">Python ingestion — automated · validated</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="sg-pair"><span class="sol3"><b>Master data dictionary applied</b><span>Units standardised — MWh · tCO₂e · tonnes — automatically on every record</span></span><span class="sg-arr gt-dq">→</span><span class="gt-tag gt-tag-dq">DQ</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Scope 1/2/3 boundaries enforced</b><span>GHG Protocol definitions applied on ingestion · no site-level interpretation</span></span><span class="sg-arr gt-sop">→</span><span class="gt-tag gt-tag-sop">SOP</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Source tagged on every record</b><span>Source · file · run ID · timestamp — immutably tagged at point of ingestion</span></span><span class="sg-arr gt-audit">→</span><span class="gt-tag gt-tag-audit">AUDIT</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Completeness score per source</b><span>Quality report on every run · gaps flagged to named data owner immediately</span></span><span class="sg-arr gt-exc">→</span><span class="gt-tag gt-tag-exc">EXC</span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Governance detail</div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-dq">DQ</span></div><b>Python data quality layer</b><span>Range checks · unit validation · completeness score · quality report on every run</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-audit">AUDIT</span></div><b>Source tagging on ingest</b><span>Source system · file · timestamp · run ID — immutably tagged on every record at point of collection</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-exc">EXC</span></div><b>Exception log</b><span>Failed checks logged · data owner alerted · correction resubmitted through same pipeline · original retained</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-sop">SOP</span></div><b>Master data dictionary</b><span>Units · scope boundaries · definitions — documented · version-controlled · referenced in every run</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">clean validated data loaded into Microsoft Fabric via Data Factory</div></div>
+
+<!-- STEP 04 -->
+<div class="leg-row">
+  <div class="step-box sb-blue">
+    <div class="sb-n">Step 04 · ~Day 2–3</div>
+    <div class="sb-t">📊 Data consolidation</div>
+    <div class="sb-s">Fabric warehouse — immutable raw layer</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="sg-pair"><span class="sol3"><b>Immutable raw layer — append only</b><span>Data as received · never overwritten · full history retained across all cycles</span></span><span class="sg-arr gt-audit">→</span><span class="gt-tag gt-tag-audit">AUDIT</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Single source of truth in Fabric</b><span>One warehouse · no local copies · all code in Git · named approval for any change</span></span><span class="sg-arr gt-ver">→</span><span class="gt-tag gt-tag-ver">VER</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Automated quality checks on load</b><span>Range validation · duplicate detection · year-on-year variance flags · exceptions logged</span></span><span class="sg-arr gt-dq">→</span><span class="gt-tag gt-tag-dq">DQ</span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Governance detail</div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-audit">AUDIT</span></div><b>Immutable raw layer</b><span>Append-only · never overwritten · full history across all reporting cycles</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-ver">VER</span></div><b>Git version control — all pipeline code</b><span>Every change committed · peer-reviewed · full history retained</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-dq">DQ</span></div><b>Automated reconciliation</b><span>Variance flags · completeness checks · cross-source reconciliation report auto-generated</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-exc">EXC</span></div><b>Exception queue</b><span>Failed checks → named owner notified · resolution documented before curated layer updated</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">clean data transformed by SQL — emission factors applied in Fabric</div></div>
+
+<!-- STEP 05 -->
+<div class="leg-row">
+  <div class="step-box sb-amber">
+    <div class="sb-n">Step 05 · ~Day 3</div>
+    <div class="sb-t">🧮 Calculation &amp; preparation</div>
+    <div class="sb-s">SQL transforms in Fabric — Git controlled</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="sg-pair"><span class="sol3"><b>Methodology SOP documented</b><span>All factors and logic formally written · version-controlled · no logic buried in cells</span></span><span class="sg-arr gt-sop">→</span><span class="gt-tag gt-tag-sop">SOP</span></div>
+    <div class="sg-pair"><span class="sol3"><b>All SQL logic in Git</b><span>Any analyst can run or extend · factor version recorded on every output row</span></span><span class="sg-arr gt-ver">→</span><span class="gt-tag gt-tag-ver">VER</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Calculation lineage on every row</b><span>Raw input → transform → emission factor version → curated result — fully traceable</span></span><span class="sg-arr gt-audit">→</span><span class="gt-tag gt-tag-audit">AUDIT</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Output validation against prior year</b><span>Regulatory checks applied · reconciliation report auto-produced · variance reviewed</span></span><span class="sg-arr gt-dq">→</span><span class="gt-tag gt-tag-dq">DQ</span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Governance detail</div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-ver">VER</span></div><b>Git version control — all SQL</b><span>Every query versioned · methodology changes require named approval · factor version on every output row</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-audit">AUDIT</span></div><b>Calculation lineage</b><span>Every output: raw row → transform → emission factor version → curated result — fully traceable</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-sop">SOP</span></div><b>Methodology document</b><span>Emission factors · conversion rates · Scope logic · annually reviewed · retained with each submission</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-dq">DQ</span></div><b>Output validation</b><span>Prior year comparison · regulatory framework checks · reconciliation report auto-produced</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr"><div class="flow-arr-lbl">curated validated data surfaces to Power BI — stakeholder review and sign-off</div></div>
+
+<!-- STEP 06 -->
+<div class="leg-row">
+  <div class="step-box sb-black">
+    <div class="sb-n">Step 06</div>
+    <div class="sb-t">📨 Submitted to requestor</div>
+    <div class="sb-s">Live Power BI · drill-through · audit package</div>
+  </div>
+  <div class="pills-wrap">
+    <div class="sg-pair"><span class="sol3"><b>Full drill-through in Power BI</b><span>Any figure → curated table → transform → raw source row · challenge answered in minutes</span></span><span class="sg-arr gt-audit">→</span><span class="gt-tag gt-tag-audit">AUDIT</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Formal sign-off recorded</b><span>Named approver · timestamp · submitted version locked and archived</span></span><span class="sg-arr gt-raci">→</span><span class="gt-tag gt-tag-raci">RACI</span></div>
+    <div class="sg-pair"><span class="sol3"><b>Audit package auto-compiled</b><span>Methodology · factors · sources · exception log · QC · sign-off — bundled on submission</span></span><span class="sg-arr gt-reg">→</span><span class="gt-tag gt-tag-reg">REG</span></div>
+    <div class="dmg-row" style="width:100%">
+      <div class="dmg-row-label">Governance detail</div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-raci">RACI</span></div><b>Named sign-off RACI</b><span>Sustainability lead + Finance + Compliance · each with timestamp · no anonymous approvals</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-ver">VER</span></div><b>Submitted version locked</b><span>Curated tables locked on sign-off · archived · correction creates new versioned record</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-audit">AUDIT</span></div><b>Evidence package retained</b><span>Full audit bundle for external assurance · methodology · factors · QC results · sign-off trail</span></div>
+      <div class="gov"><div class="gov-hdr">Governance · <span class="gt-reg">REG</span></div><b>Regulatory alignment</b><span>CSRD · GHG Protocol · CDP — aligned · assurance-ready · traceable from raw source to submitted figure</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- SLIDE 4 — TO-BE: THE WORKING MODEL -->
+<div class="slide" id="s4" style="background:#07101e">
+<style>
+/* dark slide overrides */
+#s4 .hdr h1{color:#0f172a}
+#s4 .hdr p{color:#64748b}
+#s4 .hdr{border-bottom-color:#e2e8f0}
+#s4 .leg{background:#fff;border-color:#e5e5e5}
+#s4 .lt{color:#aaa}
+#s4 .li{color:#444}
+/* dark query box */
+.qbox{background:#fff;border:1.5px solid #fca5a5;border-radius:10px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.qbox-tag{font-size:8px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#CC0000;flex-shrink:0}
+.qbox-text{font-size:9px;color:#374151;flex:1;line-height:1.6;font-style:italic}
+.qbox-time{flex-shrink:0;text-align:right}
+.qbox-b{font-size:11px;font-weight:700;color:#CC0000;text-decoration:line-through;display:block}
+.qbox-a{font-size:18px;font-weight:900;color:#15803d;display:block;line-height:1}
+.qbox-l{font-size:7px;color:#64748b}
+/* pipeline wrapper */
+.pipe4-wrap{background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px 18px 14px;margin-bottom:12px;overflow-x:auto}
+.pipe4-row{display:flex;align-items:stretch;gap:0;min-width:880px;justify-content:center}
+.p4node{flex:1;border-radius:9px;padding:11px 10px;border:1.5px solid;text-align:center;min-width:0}
+.p4-black{background:#1e293b;border-color:#0f172a}
+.p4-amber{background:#fffbeb;border-color:#d97706}
+.p4-blue{background:#eff6ff;border-color:#1d4ed8}
+.p4-green{background:#f0fdf4;border-color:#15803d}
+.p4-teal{background:#f0fdfa;border-color:#0d9488}
+.p4-lbl{font-size:6px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;color:#64748b}.p4-black .p4-lbl{color:rgba(255,255,255,.5)}
+.p4-title{font-size:9.5px;font-weight:800;color:#0f172a;line-height:1.25;margin-bottom:4px}.p4-black .p4-title{color:#fff}
+.p4-sub{font-size:7.5px;color:#475569;line-height:1.5;margin-bottom:5px}.p4-black .p4-sub{color:rgba(255,255,255,.6)}
+.p4arr{display:flex;align-items:center;padding:0 5px;flex-shrink:0;color:#94a3b8;font-size:18px;font-weight:700}
+/* audit line */
+.audit4{min-width:880px;margin-top:10px;padding:0 2px}
+.a4-bar{height:2px;background:linear-gradient(90deg,#22c55e,#3b82f6,#8b5cf6,#f59e0b,#14b8a6);border-radius:2px;margin-bottom:5px;opacity:.7}
+.a4-labels{display:flex;justify-content:space-between}
+.a4-lbl{font-size:6.5px;font-weight:600;color:#475569}
+/* governance tags dark */
+.gt4{font-size:6.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:1px 5px;border:1px solid;display:inline-block;margin:1px}
+.gt4-raci{color:#b45309;border-color:#b45309;background:#fff7ed}
+.gt4-dq{color:#1d4ed8;border-color:#1d4ed8;background:#eff6ff}
+.gt4-audit{color:#15803d;border-color:#15803d;background:#f0fdf4}
+.gt4-ver{color:#6b21a8;border-color:#6b21a8;background:#faf5ff}
+.gt4-exc{color:#CC0000;border-color:#CC0000;background:#fff1f2}
+.gt4-sop{color:#374151;border-color:#374151;background:#f8fafc}
+.gt4-reg{color:#0369a1;border-color:#0369a1;background:#f0f9ff}
+/* metrics dark */
+.met4-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}
+.met4{border-radius:9px;padding:10px 8px;border:1px solid;text-align:center}
+.met4-r{background:#fff1f2;border-color:#fecdd3}
+.met4-g{background:#f0fdf4;border-color:#86efac}
+.met4-b{background:#eff6ff;border-color:#bfdbfe}
+.met4-a{background:#fffbeb;border-color:#fde68a}
+.met4-t{background:#f0fdfa;border-color:#99f6e4}
+.met4-n{font-size:24px;font-weight:900;line-height:1;margin-bottom:2px}
+.met4-r .met4-n{color:#CC0000}
+.met4-g .met4-n{color:#15803d}
+.met4-b .met4-n{color:#1d4ed8}
+.met4-a .met4-n{color:#d97706}
+.met4-t .met4-n{color:#14b8a6}
+.met4-arrow{font-size:9px;color:#94a3b8;margin:1px 0}
+.met4-after{font-size:11px;font-weight:800;color:#15803d}
+.met4-l{font-size:7px;color:#475569;line-height:1.4;margin-top:2px}
+/* proof boxes dark */
+.proof4-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.proof4{border-radius:9px;padding:11px 13px;border:1px solid}
+.proof4-g{background:#f0fdf4;border-color:#86efac}
+.proof4-b{background:#eff6ff;border-color:#bfdbfe}
+.proof4-a{background:#fffbeb;border-color:#fde68a}
+.proof4-t{font-size:10px;font-weight:800;margin-bottom:6px}
+.proof4-g .proof4-t{color:#15803d}
+.proof4-b .proof4-t{color:#1d4ed8}
+.proof4-a .proof4-t{color:#d97706}
+.proof4-bullet{font-size:8px;color:#374151;padding:3px 0;border-bottom:1px solid #e2e8f0;line-height:1.4;display:flex;gap:6px;align-items:flex-start}
+.proof4-bullet:last-child{border-bottom:none}
+.proof4-bullet::before{content:"—";color:#94a3b8;flex-shrink:0}
+</style>
+<div class="pg" style="padding-top:14px;background:#fff;margin:8px 12px;border-radius:12px;padding:14px 20px 20px">
+
+<div class="hdr">
+  <div>
+    <h1>To-Be: The Working Model — Live Data Request, End to End</h1>
+    <p>Task 03 · automated pipeline · every stage auditable · same business outcome · fraction of the manual effort</p>
+  </div>
+  <span class="bdg">Task 03 — To-Be</span>
+</div>
+
+<!-- EXAMPLE REQUEST -->
+<div class="qbox">
+  <span class="qbox-tag">Example request</span>
+  <span class="qbox-text">"We need Scope 1 and Scope 2 emissions for all UK plants, Q1 2026, by site — for CDP submission by end of week."</span>
+  <div class="qbox-time">
+    <span class="qbox-b">~6 weeks</span>
+    <span class="qbox-a">~1 week</span>
+    <span class="qbox-l">as-is → to-be</span>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="pipe4-wrap">
+  <div style="font-size:7px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;text-align:center">End-to-end automated workflow — single request to verified output</div>
+  <div class="pipe4-row">
+    <div class="p4node p4-black">
+      <div class="p4-lbl">Step 01</div>
+      <div class="p4-title">📤 Request received</div>
+      <div class="p4-sub">Query raised · scope defined · RACI triggered · SLA clock starts</div>
+      <div><span class="gt4 gt4-raci">RACI</span><span class="gt4 gt4-sop">SOP</span></div>
+    </div>
+    <div class="p4arr">→</div>
+    <div class="p4node p4-amber">
+      <div class="p4-lbl">Step 02 · Day 1</div>
+      <div class="p4-title">🐍 Python ingestion</div>
+      <div class="p4-sub">SAP · factory · third-party read · cleaned · standardised · every record tagged with source + run ID</div>
+      <div><span class="gt4 gt4-dq">DQ</span><span class="gt4 gt4-audit">AUDIT</span><span class="gt4 gt4-exc">EXC</span></div>
+    </div>
+    <div class="p4arr">→</div>
+    <div class="p4node p4-blue">
+      <div class="p4-lbl">Step 03 · Day 2</div>
+      <div class="p4-title">🏗️ Fabric warehouse</div>
+      <div class="p4-sub">Clean data loaded · raw layer immutable · append-only · quality checks applied on load</div>
+      <div><span class="gt4 gt4-audit">AUDIT</span><span class="gt4 gt4-ver">VER</span><span class="gt4 gt4-dq">DQ</span></div>
+    </div>
+    <div class="p4arr">→</div>
+    <div class="p4node p4-blue">
+      <div class="p4-lbl">Step 04 · Day 3</div>
+      <div class="p4-title">⚙️ SQL transforms</div>
+      <div class="p4-sub">Scope 1/2 calculated · emission factors applied · factor version recorded · curated table produced</div>
+      <div><span class="gt4 gt4-ver">VER</span><span class="gt4 gt4-audit">AUDIT</span><span class="gt4 gt4-sop">SOP</span></div>
+    </div>
+    <div class="p4arr">→</div>
+    <div class="p4node p4-green">
+      <div class="p4-lbl">Step 05 · Day 4</div>
+      <div class="p4-title">✅ Review &amp; sign-off</div>
+      <div class="p4-sub">Dashboard reviewed · challenges resolved via drill-through · named approver signs off</div>
+      <div><span class="gt4 gt4-raci">RACI</span><span class="gt4 gt4-exc">EXC</span></div>
+    </div>
+    <div class="p4arr">→</div>
+    <div class="p4node p4-teal">
+      <div class="p4-lbl">Step 06 · Day 5</div>
+      <div class="p4-title">📊 Power BI output</div>
+      <div class="p4-sub">Live dashboard · drill-through to source · regulatory extract · audit package compiled</div>
+      <div><span class="gt4 gt4-audit">AUDIT</span><span class="gt4 gt4-reg">REG</span></div>
+    </div>
+  </div>
+
+  <!-- AUDIT FEEDBACK LINE -->
+  <div class="audit4">
+    <div style="font-size:6.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#15803d;margin-bottom:4px;text-align:center">↑ full audit trail — every step traceable back to source in real time</div>
+    <div class="a4-bar"></div>
+    <div class="a4-labels">
+      <span class="a4-lbl">← Request ID logged</span>
+      <span class="a4-lbl">Source · file · run ID tagged</span>
+      <span class="a4-lbl">Raw layer immutable</span>
+      <span class="a4-lbl">Factor version recorded</span>
+      <span class="a4-lbl">Sign-off timestamped</span>
+      <span class="a4-lbl">Evidence bundle archived →</span>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="met4-row">
+  <div class="met4 met4-r">
+    <div class="met4-n">~6 wks</div>
+    <div class="met4-arrow">↓</div>
+    <div class="met4-after">~1 wk</div>
+    <div class="met4-l">Cycle time · ~83% reduction</div>
+  </div>
+  <div class="met4 met4-g">
+    <div class="met4-n">100%</div>
+    <div class="met4-l">Audit trail — every figure traceable to raw source</div>
+  </div>
+  <div class="met4 met4-b">
+    <div class="met4-n">~0%</div>
+    <div class="met4-l">Unit inconsistency rate · from ~70%</div>
+  </div>
+  <div class="met4 met4-a">
+    <div class="met4-n">0</div>
+    <div class="met4-l">Key-person dependencies · fully documented</div>
+  </div>
+  <div class="met4 met4-t">
+    <div class="met4-n">~40%</div>
+    <div class="met4-l">Manual reporting overhead reduction</div>
+  </div>
+</div>
+
+<!-- PROOF BOXES — bullets -->
+<div class="proof4-row">
+  <div class="proof4 proof4-g">
+    <div class="proof4-t">✅ Auditability</div>
+    <div class="proof4-bullet">Any figure drills through to source row in Power BI</div>
+    <div class="proof4-bullet">Full chain: dashboard → curated table → SQL → raw → source file</div>
+    <div class="proof4-bullet">Emission factor version recorded on every output row</div>
+    <div class="proof4-bullet">External auditor can verify without re-running any process</div>
+    <div class="proof4-bullet">Evidence package auto-compiled on sign-off</div>
+  </div>
+  <div class="proof4 proof4-b">
+    <div class="proof4-t">⚡ Speed</div>
+    <div class="proof4-bullet">Pipeline runs automatically on schedule — no manual trigger</div>
+    <div class="proof4-bullet">Process completed in ~1 week · previously ~6 weeks</div>
+    <div class="proof4-bullet">Review stage limited to exceptions only — not full re-investigation</div>
+    <div class="proof4-bullet">Stakeholder challenges resolved in minutes via drill-through</div>
+    <div class="proof4-bullet">No re-work loops — trust built into the output from day one</div>
+  </div>
+  <div class="proof4 proof4-a">
+    <div class="proof4-t">📐 Repeatability</div>
+    <div class="proof4-bullet">Same pipeline runs every reporting cycle — no manual steps</div>
+    <div class="proof4-bullet">Any analyst can run or extend — no key-person dependency</div>
+    <div class="proof4-bullet">All logic in Git — full history of every methodology change</div>
+    <div class="proof4-bullet">SOPs documented — process survives team changes</div>
+    <div class="proof4-bullet">Improves each cycle — quality scores tracked over time</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- SLIDE 5 — IMPLEMENTATION TIMELINE -->
+<div class="slide" id="s5" style="background:#07101e">
+<style>
+#s5 .hdr h1{color:#0f172a}
+#s5 .hdr p{color:#64748b}
+#s5 .hdr{border-bottom-color:#e2e8f0}
+#s5 .leg{background:#fff;border-color:#e5e5e5}
+#s5 .lt{color:#aaa}
+#s5 .li{color:#444}
+/* timeline phase — white boxes on dark bg */
+.tl5-wrap{display:flex;flex-direction:column;gap:8px}
+.tl5-phase{background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;padding:11px 14px;display:flex;gap:14px;align-items:flex-start}
+.tl5-left{width:120px;flex-shrink:0;text-align:center;border-radius:8px;padding:10px 8px}
+.tl5-l-black{background:#0f172a;border:1px solid #0f172a}
+.tl5-l-amber{background:#d97706;border:1px solid #d97706}
+.tl5-l-blue{background:#1d4ed8;border:1px solid #1d4ed8}
+.tl5-l-green{background:#15803d;border:1px solid #15803d}
+.tl5-l-teal{background:#0d9488;border:1px solid #0d9488}
+.tl5-pn{font-size:6.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2px}
+.tl5-pt{font-size:10px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:3px}
+.tl5-dur{font-size:9px;font-weight:700;color:rgba(255,255,255,.75)}
+.tl5-right{flex:1}
+.tl5-title{font-size:9.5px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.tl5-tasks{display:flex;flex-wrap:wrap;gap:5px}
+.tl5-task{border-radius:5px;padding:4px 9px;border:1px solid;font-size:7.5px;line-height:1.5}
+.tt5-k{background:#f8fafc;border-color:#e2e8f0;color:#374151}
+.tt5-a{background:#fffbeb;border-color:#fde68a;color:#92400e}
+.tt5-b{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.tt5-g{background:#f0fdf4;border-color:#86efac;color:#15803d}
+.tt5-t{background:#f0fdfa;border-color:#99f6e4;color:#0f766e}
+.tt5-gov{background:#fff7ed;border-color:#92400e;color:#92400e}
+.tl5-task b{font-weight:700;display:block;margin-bottom:1px}
+.tl5-connector{display:flex;justify-content:center;height:14px;position:relative}
+.tl5-connector::before{content:'';position:absolute;left:50%;top:0;width:1px;height:100%;background:#e2e8f0}
+.tl5-connector::after{content:'▼';position:absolute;left:50%;top:2px;transform:translateX(-50%);font-size:9px;color:#cbd5e1}
+/* total bar */
+.tl5-total{background:#fff;border:1.5px solid #e2e8f0;border-radius:9px;padding:10px 14px;display:flex;gap:0;align-items:center;overflow:hidden;margin-top:4px}
+.tl5-seg{display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;padding:7px 4px;text-align:center;line-height:1.3;border-radius:4px;margin:0 1px}
+</style>
+<div class="pg" style="padding-top:14px;background:#fff;margin:8px 12px;border-radius:12px;padding:14px 20px 20px">
+
+<div class="hdr">
+  <div>
+    <h1>Implementation Timeline — Foundation to Full Deployment</h1>
+    <p>Phased delivery · governance first · pipeline second · Power BI third · ~12 weeks to first full deployed use case</p>
+  </div>
+  <span class="bdg">Delivery plan</span>
+</div>
+
+<div class="leg" style="margin-bottom:9px">
+  <span class="lt">Task types:</span>
+  <div class="li"><div class="ld" style="background:#64748b"></div>Discovery</div>
+  <div class="li"><div class="ld" style="background:#fbbf24"></div>Technical build</div>
+  <div class="li"><div class="ld" style="background:#60a5fa"></div>Integration</div>
+  <div class="li"><div class="ld" style="background:#4ade80"></div>Testing / validation</div>
+  <div class="li"><div class="ld" style="background:#fcd34d"></div>Governance / SOP</div>
+</div>
+
+<div class="tl5-wrap">
+
+  <div class="tl5-phase">
+    <div class="tl5-left tl5-l-black">
+      <div class="tl5-pn">Phase 1</div>
+      <div class="tl5-pt">Foundation &amp; discovery</div>
+      <div class="tl5-dur">Weeks 1–2</div>
+    </div>
+    <div class="tl5-right">
+      <div class="tl5-title">Understand the data landscape before touching any tooling</div>
+      <div class="tl5-tasks">
+        <div class="tl5-task tt5-k"><b>Stakeholder mapping</b>Who owns what · who requests what · what formats in use · what "good" looks like</div>
+        <div class="tl5-task tt5-k"><b>Data flow audit</b>Map every current movement — SAP · factory files · third-party · email chains · master sheets</div>
+        <div class="tl5-task tt5-k"><b>Source system inventory</b>SAP table structure · factory outputs · third-party formats · volume · frequency · known quality issues</div>
+        <div class="tl5-task tt5-gov"><b>Unit &amp; scope inventory</b>All units in use · all Scope 1/2/3 interpretations · emission factors currently applied · discrepancies documented</div>
+        <div class="tl5-task tt5-gov"><b>RACI draft</b>Named owner per data domain · submission SLA agreed · data collection SOP draft begun</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl5-connector"></div>
+
+  <div class="tl5-phase">
+    <div class="tl5-left tl5-l-amber">
+      <div class="tl5-pn">Phase 2</div>
+      <div class="tl5-pt">Governance &amp; SOPs</div>
+      <div class="tl5-dur">Weeks 2–4</div>
+    </div>
+    <div class="tl5-right">
+      <div class="tl5-title">Governance before first line of pipeline code</div>
+      <div class="tl5-tasks">
+        <div class="tl5-task tt5-gov"><b>Master data dictionary</b>All units standardised · Scope 1/2/3 per GHG Protocol · emission factor sources documented · signed off</div>
+        <div class="tl5-task tt5-gov"><b>Data collection SOP</b>Submission template · SLA per source · escalation path · completeness checklist · version-controlled</div>
+        <div class="tl5-task tt5-gov"><b>Methodology SOP</b>Calculation logic · factor application rules · Scope methodology · reviewed by sustainability lead</div>
+        <div class="tl5-task tt5-gov"><b>Sign-off RACI</b>Named approver per domain · sign-off chain · correction process · archived version protocol</div>
+        <div class="tl5-task tt5-k"><b>Success criteria</b>Agreed metrics: cycle time · error rate · audit coverage · challenge resolution time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl5-connector"></div>
+
+  <div class="tl5-phase">
+    <div class="tl5-left tl5-l-blue">
+      <div class="tl5-pn">Phase 3</div>
+      <div class="tl5-pt">Pipeline build</div>
+      <div class="tl5-dur">Weeks 3–7</div>
+    </div>
+    <div class="tl5-right">
+      <div class="tl5-title">Build highest-pain pipeline first · ship working version · iterate</div>
+      <div class="tl5-tasks">
+        <div class="tl5-task tt5-a"><b>SAP connection</b>Python script · scheduled extract · controlled shared folder · run logging from day one</div>
+        <div class="tl5-task tt5-a"><b>Python cleaning layer</b>Unit standardisation · completeness checks · range validation · exception log · quality report per run</div>
+        <div class="tl5-task tt5-b"><b>Fabric Data Factory</b>In partnership with IT · pipeline to Fabric warehouse · schedule configured · run health monitoring</div>
+        <div class="tl5-task tt5-b"><b>Raw layer in Fabric</b>Immutable append-only table · source tagging schema · columns documented · partitioned by period</div>
+        <div class="tl5-task tt5-a"><b>SQL transformation layer</b>Unit conversion · emission factor joins · Scope 1/2/3 logic · all SQL in Git · peer-reviewed before deployment</div>
+        <div class="tl5-task tt5-b"><b>Curated reporting table</b>Aggregated outputs · intensity ratios · year-on-year comparison · lineage preserved</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl5-connector"></div>
+
+  <div class="tl5-phase">
+    <div class="tl5-left tl5-l-green">
+      <div class="tl5-pn">Phase 4</div>
+      <div class="tl5-pt">Power BI &amp; validation</div>
+      <div class="tl5-dur">Weeks 6–9</div>
+    </div>
+    <div class="tl5-right">
+      <div class="tl5-title">Connect Power BI · validate with stakeholders · measure against success criteria</div>
+      <div class="tl5-tasks">
+        <div class="tl5-task tt5-b"><b>Power BI DirectQuery</b>Live connection to Fabric · no manual refresh · data freshness indicator</div>
+        <div class="tl5-task tt5-g"><b>Sustainability dashboard</b>Scope 1/2/3 by site · intensity ratios · year-on-year · drill-through on every figure</div>
+        <div class="tl5-task tt5-g"><b>Regulatory extracts</b>CSRD · GHG Protocol · CDP — formatted to submission requirements · one-click from live data</div>
+        <div class="tl5-task tt5-g"><b>Stakeholder validation</b>Walk sustainability lead through outputs · validate figures · confirm drill-through · document sign-off</div>
+        <div class="tl5-task tt5-g"><b>Measure success criteria</b>Cycle time · error rate · challenge resolution · stakeholder confidence — before vs after</div>
+        <div class="tl5-task tt5-gov"><b>Runbook documentation</b>Pipeline runbook · failure modes · recovery steps · IT handover pack</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl5-connector"></div>
+
+  <div class="tl5-phase">
+    <div class="tl5-left tl5-l-teal">
+      <div class="tl5-pn">Phase 5</div>
+      <div class="tl5-pt">Deployment &amp; scale</div>
+      <div class="tl5-dur">Weeks 9–12</div>
+    </div>
+    <div class="tl5-right">
+      <div class="tl5-title">Extend to all sources · run first full cycle · demonstrate value · identify next use case</div>
+      <div class="tl5-tasks">
+        <div class="tl5-task tt5-t"><b>Extend to all sources</b>Factory systems · third-party data · remaining manual inputs — same pipeline pattern applied</div>
+        <div class="tl5-task tt5-t"><b>First full reporting cycle</b>Complete end-to-end · all sources · all calculations · all governance active · full sign-off</div>
+        <div class="tl5-task tt5-g"><b>Impact measurement</b>Cycle time · manual hours saved · error rate · challenge frequency · audit coverage — presented to leadership</div>
+        <div class="tl5-task tt5-gov"><b>Full handover</b>SOPs finalised · pipeline documented · Git repository documented · any analyst can run or extend</div>
+        <div class="tl5-task tt5-t"><b>Next use case</b>Identify next highest-pain process · apply same pattern · scale the approach</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL BAR -->
+  <div class="tl5-total">
+    <div class="tl5-seg" style="background:#374151;flex:2">Ph1<br>Wk 1–2</div>
+    <div class="tl5-seg" style="background:#d97706;flex:2">Ph2 Gov<br>Wk 2–4</div>
+    <div class="tl5-seg" style="background:#1d4ed8;flex:4">Phase 3 — Pipeline build · Wk 3–7</div>
+    <div class="tl5-seg" style="background:#15803d;flex:3">Phase 4 — Power BI &amp; validation · Wk 6–9</div>
+    <div class="tl5-seg" style="background:#0d9488;flex:3">Phase 5 — Deploy &amp; scale · Wk 9–12</div>
+    <div style="margin-left:14px;flex-shrink:0;text-align:right">
+      <div style="font-size:20px;font-weight:900;color:#15803d;line-height:1">~12 wks</div>
+      <div style="font-size:7.5px;color:#64748b">first use case fully deployed</div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<nav class="nav">
+  <button class="nbtn" onclick="go(-1)">← Prev</button>
+  <div style="display:flex;gap:7px;align-items:center">
+    <div class="ndot on" onclick="jump(0)"></div>
+    <div class="ndot" onclick="jump(1)"></div>
+    <div class="ndot" onclick="jump(2)"></div>
+    <div class="ndot" onclick="jump(3)"></div>
+    <div class="ndot" onclick="jump(4)"></div>
+    <div class="ndot" onclick="jump(5)"></div>
+  </div>
+  <div class="ncnt" id="cnt">0 / 5</div>
+  <div class="slbl" id="slbl">Cover</div>
+  <button class="nbtn" onclick="go(1)">Next →</button>
+</nav>
+<script>
+const labels=['Cover','As-Is — Broken Process Mapped','Stabilising — Solutions at Every Failure Point','Governance Controls — Embedded at Every Stage','To-Be: The Working Model','Implementation Timeline'];
+let cur=0;
+function jump(n){document.getElementById('s'+cur).classList.remove('active');document.querySelectorAll('.ndot')[cur].classList.remove('on');cur=n;document.getElementById('s'+cur).classList.add('active');document.querySelectorAll('.ndot')[cur].classList.add('on');document.getElementById('cnt').textContent=cur+' / 5';document.getElementById('slbl').textContent=labels[cur];}
+function go(d){let n=cur+d;if(n<0)n=0;if(n>5)n=5;jump(n);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
+</body>
+</html>
